@@ -18,7 +18,7 @@ function LoginScreen({ navigation }) {
     const unsubscibe = onAuthStateChanged(auth, (user) => {
       console.log(user);
       if (user) {
-        navigation.replace("home");
+        navigation.replace("Home");
       }
     });
     return unsubscibe;
@@ -62,7 +62,7 @@ function LoginScreen({ navigation }) {
     reset();
   }
   return (
-    <View styles={styles.main}>
+    <View style={styles.main}>
       <View style={styles.input}>
         <Text>Username: </Text>
         <TextInput
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderColor: "black",
     borderWidth: 1,
+    borderRadius: 4,
   },
   input: {
     flexDirection: "row",
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   main: {
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 1,
+    backgroundColor: "#9fb7cd",
   },
 });
