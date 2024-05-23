@@ -1,6 +1,8 @@
 import { TextInput, View, StyleSheet, Text } from "react-native";
 import Button from "../components/Button";
 import { useState } from "react";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { app } from "../firebase";
 
 function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -17,6 +19,16 @@ function LoginScreen() {
 
   function handlePassword(userPassword) {
     setPassword(userPassword);
+  }
+
+  function handleSignUp() {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredetial) => {
+        const user = userCredetial.user;
+        console.log(user.displayName);
+      })
+      .catch((error) => alert(error.message));
   }
 
   return (
@@ -38,7 +50,7 @@ function LoginScreen() {
         />
       </View>
       <View>
-        <Button onPress={onPress}>Sign Up</Button>
+        <Button onPress={handleSignUp}>Sign Up</Button>
         <Button onPress={onPress}>Login</Button>
       </View>
     </View>
