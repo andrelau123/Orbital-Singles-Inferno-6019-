@@ -22,18 +22,19 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   button: {
-    margin: 4,
     borderRadius: 4,
     overflow: "hidden",
     borderWidth: 1,
     padding: 8,
     marginHorizontal: 100,
+    paddingVertical: 10,
     backgroundColor: "#c3578b",
-    borderColor: "#883d61",
+    borderColor: "#fcfbfb",
   },
   buttonText: {
     textAlign: "center",
-    color: "#2c0b24",
+    fontWeight: "bold",
+    color: "#ede8ec",
   },
   pressed: {
     opacity: 0.75,

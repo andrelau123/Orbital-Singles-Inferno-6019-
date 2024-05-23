@@ -1,12 +1,28 @@
 import { TextInput, View, StyleSheet, Text } from "react-native";
 import Button from "../components/Button";
-import { useState } from "react";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { app } from "../firebase";
+import { useEffect, useState } from "react";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { app, auth } from "../firebase";
+import { useNavigation } from "@react-navigation/native";
 
-function LoginScreen() {
+function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const unsubscibe = onAuthStateChanged(auth, (user) => {
+      console.log(user);
+      if (user) {
+        navigation.replace("home");
+      }
+    });
+    return unsubscibe;
+  }, []);
 
   function onPress() {
     console.log("pressed");
@@ -21,16 +37,30 @@ function LoginScreen() {
     setPassword(userPassword);
   }
 
+  function reset() {
+    setEmail("");
+    setPassword("");
+  }
+
   function handleSignUp() {
-    const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredetial) => {
         const user = userCredetial.user;
-        console.log(user.displayName);
+        console.log(user.email);
       })
       .catch((error) => alert(error.message));
+    reset();
   }
 
+  function handleSignIn() {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredetial) => {
+        const user = userCredetial.user;
+        console.log(user.email);
+      })
+      .catch((error) => alert(error.message));
+    reset();
+  }
   return (
     <View styles={styles.main}>
       <View style={styles.input}>
@@ -39,6 +69,9 @@ function LoginScreen() {
           style={styles.textInput}
           placeholder="username"
           onChangeText={handleEmail}
+          autoCapitalize="none"
+          autoCorrect={false}
+          value={email}
         />
       </View>
       <View style={styles.input}>
@@ -47,11 +80,14 @@ function LoginScreen() {
           style={styles.textInput}
           placeholder="password"
           onChangeText={handlePassword}
+          autoCapitalize="none"
+          autoCorrect={false}
+          value={password}
         />
       </View>
       <View>
         <Button onPress={handleSignUp}>Sign Up</Button>
-        <Button onPress={onPress}>Login</Button>
+        <Button onPress={handleSignIn}>Login</Button>
       </View>
     </View>
   );
