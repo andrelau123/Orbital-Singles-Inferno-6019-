@@ -8,7 +8,6 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { app, auth } from "../firebase";
-import { useNavigation } from "@react-navigation/native";
 
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -63,8 +62,11 @@ function LoginScreen({ navigation }) {
   }
   return (
     <View style={styles.main}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Single's Inferno</Text>
+      </View>
       <View style={styles.input}>
-        <Text>Username: </Text>
+        <Text style={styles.text}>Username: </Text>
         <TextInput
           style={styles.textInput}
           placeholder="username"
@@ -75,7 +77,7 @@ function LoginScreen({ navigation }) {
         />
       </View>
       <View style={styles.input}>
-        <Text>Password: </Text>
+        <Text style={styles.text}>Password: </Text>
         <TextInput
           style={styles.textInput}
           placeholder="password"
@@ -101,6 +103,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
     borderRadius: 4,
+    width: 230,
   },
   input: {
     flexDirection: "row",
@@ -111,5 +114,20 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: "#9fb7cd",
+  },
+  titleContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 8,
+  },
+  title: {
+    fontSize: 50,
+    fontFamily: "Baskerville",
+    color: "#0e0c36",
+  },
+  text: {
+    padding: 8,
+    width: 90,
+    textAlign: "center",
   },
 });

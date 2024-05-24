@@ -20,6 +20,10 @@ export default Button;
 const styles = StyleSheet.create({
   buttonContainer: {
     padding: 4,
+    shadowColor: "white",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 6,
+    shadowRadius: 0.35,
   },
   button: {
     borderRadius: 4,
