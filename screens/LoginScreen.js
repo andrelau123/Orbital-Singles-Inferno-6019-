@@ -88,8 +88,12 @@ function LoginScreen({ navigation }) {
         />
       </View>
       <View>
-        <Button onPress={handleSignUp}>Sign Up</Button>
-        <Button onPress={handleSignIn}>Login</Button>
+        <View style={styles.buttonContainer}>
+          <Button onPress={handleSignUp}>Sign Up</Button>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button onPress={handleSignIn}>Login</Button>
+        </View>
       </View>
     </View>
   );
@@ -99,7 +103,7 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
   textInput: {
-    padding: 8,
+    padding: 9,
     borderColor: "black",
     borderWidth: 1,
     borderRadius: 4,
@@ -129,5 +133,8 @@ const styles = StyleSheet.create({
     padding: 8,
     width: 90,
     textAlign: "center",
+  },
+  buttonContainer: {
+    padding: 3,
   },
 });
