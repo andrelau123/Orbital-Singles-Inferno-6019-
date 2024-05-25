@@ -20,7 +20,7 @@ export default Button;
 const styles = StyleSheet.create({
   buttonContainer: {
     padding: 4,
-    shadowColor: "white",
+    shadowColor: "#29395a",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 6,
     shadowRadius: 0.35,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginHorizontal: 100,
     paddingVertical: 10,
-    backgroundColor: "#c3578b",
+    backgroundColor: "#372056",
     borderColor: "#fcfbfb",
   },
   buttonText: {

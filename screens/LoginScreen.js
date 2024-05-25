@@ -3,7 +3,6 @@ import Button from "../components/Button";
 import { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
