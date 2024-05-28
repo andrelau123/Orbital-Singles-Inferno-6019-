@@ -9,12 +9,21 @@ function HomeScreen({ navigation }) {
       .then(() => navigation.replace("Login"))
       .catch((error) => alert(error.message));
   }
+
+  function navigateToMBTIPage() {
+    navigation.navigate("MBTI");
+  }
   return (
     <View style={styles.main}>
       <Text style={styles.text}>
         Welcome back, {auth.currentUser.email} !!!
       </Text>
-      <Button onPress={onPress}>Sign out</Button>
+      <View style={styles.buttonsContainer}>
+        <Button onPress={navigateToMBTIPage}>MBTI Test</Button>
+      </View>
+      <View style={styles.signOut}>
+        <Button onPress={onPress}>Sign out</Button>
+      </View>
     </View>
   );
 }
@@ -32,5 +41,12 @@ styles = StyleSheet.create({
     color: "white",
     padding: 8,
     marginBottom: 200,
+  },
+  buttonsContainer: {
+    padding: 8,
+    flex: 3,
+  },
+  signOut: {
+    flex: 1,
   },
 });
