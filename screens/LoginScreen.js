@@ -1,4 +1,4 @@
-import { TextInput, View, StyleSheet, Text } from "react-native";
+import { TextInput, View, StyleSheet, Text, Image } from "react-native";
 import Button from "../components/Button";
 import { useEffect, useState } from "react";
 import {
@@ -21,10 +21,6 @@ function LoginScreen({ navigation }) {
     });
     return unsubscibe;
   }, []);
-
-  function onPress() {
-    console.log("pressed");
-  }
 
   function handleEmail(userEmailInput) {
     setEmail(userEmailInput);
@@ -61,37 +57,45 @@ function LoginScreen({ navigation }) {
   }
   return (
     <View style={styles.main}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Single's Inferno</Text>
-      </View>
-      <View style={styles.input}>
-        <Text style={styles.text}>Username: </Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="username"
-          onChangeText={handleEmail}
-          autoCapitalize="none"
-          autoCorrect={false}
-          value={email}
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../assets/pngwing.com.png")}
+          style={styles.image}
         />
       </View>
-      <View style={styles.input}>
-        <Text style={styles.text}>Password: </Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="password"
-          onChangeText={handlePassword}
-          autoCapitalize="none"
-          autoCorrect={false}
-          value={password}
-        />
-      </View>
-      <View>
-        <View style={styles.buttonContainer}>
-          <Button onPress={handleSignUp}>Sign Up</Button>
+      <View style={styles.contentContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Single's Inferno</Text>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button onPress={handleSignIn}>Login</Button>
+        <View style={styles.input}>
+          <Text style={styles.text}>Username: </Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="username"
+            onChangeText={handleEmail}
+            autoCapitalize="none"
+            autoCorrect={false}
+            value={email}
+          />
+        </View>
+        <View style={styles.input}>
+          <Text style={styles.text}>Password: </Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="password"
+            onChangeText={handlePassword}
+            autoCapitalize="none"
+            autoCorrect={false}
+            value={password}
+          />
+        </View>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <Button onPress={handleSignUp}>Sign Up</Button>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button onPress={handleSignIn}>Login</Button>
+          </View>
         </View>
       </View>
     </View>
@@ -135,5 +139,17 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     padding: 3,
+  },
+  buttonsContainer: {
+    marginTop: 30,
+  },
+  image: {
+    width: 150,
+    height: 150,
+  },
+
+  imageContainer: { justifyContent: "center", alignItems: "center", flex: 1 },
+  contentContainer: {
+    flex: 3,
   },
 });
