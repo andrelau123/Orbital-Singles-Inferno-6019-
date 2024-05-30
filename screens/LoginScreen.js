@@ -58,10 +58,7 @@ function LoginScreen({ navigation }) {
   return (
     <View style={styles.main}>
       <View style={styles.imageContainer}>
-        <Image
-          source={require("../assets/pngwing.com.png")}
-          style={styles.image}
-        />
+        <Image source={require("../assets/icon.png")} style={styles.image} />
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.titleContainer}>

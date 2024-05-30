@@ -31,14 +31,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 8,
     marginHorizontal: 100,
-    paddingVertical: 13,
+    paddingVertical: 15,
     backgroundColor: "#372056",
     borderColor: "#fcfbfb",
   },
   buttonText: {
     textAlign: "center",
     fontWeight: "bold",
-    color: "#ede8ec",
+    color: "#f4eff3",
   },
   pressed: {
     opacity: 0.75,

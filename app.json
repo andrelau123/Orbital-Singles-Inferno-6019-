@@ -4,10 +4,10 @@
     "slug": "singlesinferno",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/pngwing.com.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -26,7 +26,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/pngwing.com.png"
     },
     "extra": {
       "eas": {
@@ -35,6 +35,9 @@
     },
     "updates": {
       "url": "https://u.expo.dev/ff4e234d-cb47-4f3b-8f15-990d2d1db837"
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

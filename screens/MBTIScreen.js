@@ -1,10 +1,11 @@
 import { Text, View, Alert, StyleSheet } from "react-native";
 import YesnoButton from "../components/YesnoButton";
 import { useState } from "react";
-import Button from "../components/Button";
-import { get } from "firebase/database";
+import Helperfunc from "../components/Helperfunc";
+import { Khand_400Regular, useFonts } from "@expo-google-fonts/khand";
 
 function MBTIScreen({ navigation }) {
+  const font = useFonts({ Khand_400Regular });
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [ranking, setRanking] = useState({
     extraversion: 0,
@@ -16,6 +17,10 @@ function MBTIScreen({ navigation }) {
   const file = require("./questions.json");
 
   function yesHandler() {
+    updateRanking();
+    if (currentQuestion == 49) {
+      navigation.replace("Details");
+    }
     nextQuestion();
   }
   function noHandler() {
@@ -23,28 +28,32 @@ function MBTIScreen({ navigation }) {
   }
 
   function nextQuestion() {
-    setCurrentQuestion((curr) => {
-      if (curr + 1 <= 50) {
-        return curr + 1;
-      } else {
-        return 0;
-      }
-    });
+    setCurrentQuestion((curr) => curr + 1);
   }
 
-  function updateRanking() {}
-
+  function updateRanking() {
+    setRanking((curr) => {
+      return {
+        ...curr,
+        [file[currentQuestion].category]:
+          curr[file[currentQuestion].category] + file[currentQuestion].scale,
+      };
+    });
+  }
+  console.log(ranking);
   return (
     <View style={styles.base}>
-      <View>
+      <Text style={styles.Itext}>I...</Text>
+      <View style={styles.test}>
         <Text style={styles.text}>{file[currentQuestion].question}</Text>
       </View>
-      <View style={styles.buttonConatiner}>
-        <View style={styles.yesno}>
+      <View style={styles.yesno}>
+        <View style={styles.yesnoButton}>
           <YesnoButton onPress={yesHandler}>Yes</YesnoButton>
+        </View>
+        <View style={styles.yesnoButton}>
           <YesnoButton onPress={noHandler}>No</YesnoButton>
         </View>
-        <View style={styles.next}></View>
       </View>
     </View>
   );
@@ -61,13 +70,33 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   yesno: {
-    flexDirection: "column",
+    flexDirection: "row",
+    flex: 2,
+    marginTop: 100,
   },
   next: {},
   text: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 35,
     padding: 8,
-    marginTop: 8,
+    marginTop: 35,
+    fontFamily: "Khand_400Regular",
+    margin: 30,
+  },
+
+  yesnoButton: {
+    flex: 1,
+  },
+  Itext: {
+    padding: 12,
+    fontSize: 40,
+    fontStyle: "italic",
+    fontFamily: "Baskerville",
+    marginLeft: 25,
+    marginTop: 20,
+    flex: 1,
+  },
+  test: {
+    flex: 2,
   },
 });
