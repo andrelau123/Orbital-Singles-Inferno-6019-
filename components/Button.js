@@ -14,8 +14,8 @@ function Button({ children, onPress }) {
     </View>
   );
 }
-
 export default Button;
+
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -32,9 +32,11 @@ const styles = StyleSheet.create({
     padding: 8,
     marginHorizontal: 100,
     paddingVertical: 15,
-    backgroundColor: "#372056",
-    borderColor: "#fcfbfb",
+    backgroundColor: "#fa6559",
+    borderColor: "#000000",
   },
+
+
   buttonText: {
     textAlign: "center",
     fontWeight: "bold",
