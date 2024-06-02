@@ -8,7 +8,6 @@ import GetDetailsScreen from "./screens/GetDetailsScreen";
 import DetailsContextProvider from "./store/context/details";
 import MBTIEndScreen from "./screens/MBTIEndScreen";
 
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -26,7 +25,7 @@ export default function App() {
             }}
           >
             <Stack.Screen name="Welcome" component={LoginScreen} />
-            <Stack.Screen name="Home" options={{headerStyle: {backgroundColor: '#fa6559',}, }} component={HomeScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="MBTI" component={MBTIScreen} />
             <Stack.Screen name="Details" component={GetDetailsScreen} />
             <Stack.Screen name="mbtiresults" component={MBTIEndScreen} />

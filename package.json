@@ -8,7 +8,10 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/dev": "^0.2.3",
     "@expo-google-fonts/khand": "^0.2.3",
+    "@expo-google-fonts/mate": "^0.2.3",
+    "@expo-google-fonts/signika": "^0.2.3",
     "@expo/config": "^8.1.1",
     "@expo/metro-config": "^0.10.0",
     "@react-navigation/native": "^6.1.17",

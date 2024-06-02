@@ -3,11 +3,10 @@ import Button from "../components/Button";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 
-
 function HomeScreen({ navigation }) {
   function onPress() {
     signOut(auth)
-      .then(() => navigation.replace("Login"))
+      .then(() => navigation.replace("Welcome"))
       .catch((error) => alert(error.message));
   }
 
@@ -16,15 +15,18 @@ function HomeScreen({ navigation }) {
   }
   return (
     <View style={styles.main}>
-      <Image style={styles.image} source={require('../assets/avatar.png')}/>
+      <Image style={styles.image} source={require("../assets/avatar.png")} />
       <Text style={styles.text}>
         Welcome back, {auth.currentUser.email} !!!
       </Text>
 
-      <Button onPress={navigateToMBTIPage} style={styles.buttonsContainer}>MBTI Test</Button>
+      <Button onPress={navigateToMBTIPage} style={styles.buttonsContainer}>
+        MBTI Test
+      </Button>
 
-      <Button onPress={onPress} style={styles.buttonsContainer}>Sign out</Button>
-      
+      <Button onPress={onPress} style={styles.buttonsContainer}>
+        Sign out
+      </Button>
     </View>
   );
 }
@@ -33,16 +35,15 @@ export default HomeScreen;
 
 styles = StyleSheet.create({
   image: {
-    width: 100, 
+    width: 100,
     height: 100,
     alignSelf: "center",
-    justifyContent:"flex-center",
-
+    justifyContent: "flex-center",
   },
   main: {
-    flex:1,
+    flex: 1,
     backgroundColor: "#ffffff",
-    justifyContent:"center",
+    justifyContent: "center",
     alignItems: "stretch",
   },
   text: {
@@ -52,7 +53,7 @@ styles = StyleSheet.create({
     marginBottom: 200,
   },
   buttonsContainer: {
-    justifyContent:"flex-start",
+    justifyContent: "flex-start",
     padding: 8,
     flex: 3,
   },
