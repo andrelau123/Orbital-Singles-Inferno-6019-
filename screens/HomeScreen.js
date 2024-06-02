@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 
+
 function HomeScreen({ navigation }) {
   function onPress() {
     signOut(auth)
@@ -15,15 +16,15 @@ function HomeScreen({ navigation }) {
   }
   return (
     <View style={styles.main}>
+      <Image style={styles.image} source={require('../assets/avatar.png')}/>
       <Text style={styles.text}>
         Welcome back, {auth.currentUser.email} !!!
       </Text>
-      <View style={styles.buttonsContainer}>
-        <Button onPress={navigateToMBTIPage}>MBTI Test</Button>
-      </View>
-      <View style={styles.signOut}>
-        <Button onPress={onPress}>Sign out</Button>
-      </View>
+
+      <Button onPress={navigateToMBTIPage} style={styles.buttonsContainer}>MBTI Test</Button>
+
+      <Button onPress={onPress} style={styles.buttonsContainer}>Sign out</Button>
+      
     </View>
   );
 }
@@ -31,18 +32,27 @@ function HomeScreen({ navigation }) {
 export default HomeScreen;
 
 styles = StyleSheet.create({
+  image: {
+    width: 100, 
+    height: 100,
+    alignSelf: "center",
+    justifyContent:"flex-center",
+
+  },
   main: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#122b43",
+    flex:1,
+    backgroundColor: "#ffffff",
+    justifyContent:"center",
+    alignItems: "stretch",
   },
   text: {
     textAlign: "center",
-    color: "white",
+    color: "black",
     padding: 8,
     marginBottom: 200,
   },
   buttonsContainer: {
+    justifyContent:"flex-start",
     padding: 8,
     flex: 3,
   },
