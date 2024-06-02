@@ -1,11 +1,23 @@
 export default function Helperfunc(array) {
-  let max = array[0].scale;
-  let value = 0;
-  for (let i = 0; i < array.length; i++) {
-    if (array[i].scale > max) {
-      max = array.scale;
-      value = i;
+  let max = "";
+  let min = "";
+  let first = true;
+  let maxval = 0;
+  let minval = 0;
+  for (const [key, value] of array) {
+    if (first) {
+      max = key;
+      min = key;
+      maxval = value;
+      minval = value;
+      first = false;
+    } else if (value > maxval) {
+      maxval = value;
+      max = key;
+    } else if (value < minval) {
+      minval = value;
+      min = key;
     }
   }
-  return array[value].catagory;
+  return [max, min];
 }

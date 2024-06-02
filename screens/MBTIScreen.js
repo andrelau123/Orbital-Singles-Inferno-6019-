@@ -1,11 +1,13 @@
 import { Text, View, Alert, StyleSheet } from "react-native";
 import YesnoButton from "../components/YesnoButton";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Helperfunc from "../components/Helperfunc";
 import { Khand_400Regular, useFonts } from "@expo-google-fonts/khand";
+import { DetailsContext } from "../store/context/details";
 
 function MBTIScreen({ navigation }) {
   const font = useFonts({ Khand_400Regular });
+  const detailsctx = useContext(DetailsContext);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [ranking, setRanking] = useState({
     extraversion: 0,
@@ -19,7 +21,14 @@ function MBTIScreen({ navigation }) {
   function yesHandler() {
     updateRanking();
     if (currentQuestion == 49) {
-      navigation.replace("Details");
+      const result = Object.entries(ranking);
+      const maxmin = Helperfunc(result);
+      detailsctx.updateDetails("best", maxmin[0]);
+      detailsctx.updateDetails("worst", maxmin[1]);
+      console.log(detailsctx);
+
+      navigation.navigate("Details");
+      return;
     }
     nextQuestion();
   }
@@ -40,7 +49,6 @@ function MBTIScreen({ navigation }) {
       };
     });
   }
-  console.log(ranking);
   return (
     <View style={styles.base}>
       <Text style={styles.Itext}>I...</Text>
