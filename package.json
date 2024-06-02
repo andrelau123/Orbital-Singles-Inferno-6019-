@@ -10,6 +10,7 @@
   "dependencies": {
     "@expo-google-fonts/dev": "^0.2.3",
     "@expo-google-fonts/khand": "^0.2.3",
+    "@expo-google-fonts/liu-jian-mao-cao": "^0.2.3",
     "@expo-google-fonts/mate": "^0.2.3",
     "@expo-google-fonts/signika": "^0.2.3",
     "@expo/config": "^8.1.1",

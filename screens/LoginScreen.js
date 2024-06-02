@@ -16,15 +16,14 @@ import {
 import { app, auth } from "../firebase";
 import {
   useFonts,
-  Khand_400Regular,
-  Signika_400Regular,
-} from "@expo-google-fonts/signika";
+  LiuJianMaoCao_400Regular,
+} from "@expo-google-fonts/liu-jian-mao-cao";
 import FAIcon from "react-native-vector-icons/FontAwesome";
 
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const font = useFonts({ Khand_400Regular, Signika_400Regular });
+  const font = useFonts({ LiuJianMaoCao_400Regular });
 
   useEffect(() => {
     const unsubscibe = onAuthStateChanged(auth, (user) => {
@@ -140,11 +139,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   subheader: {
-    fontFamily: "Assistant",
-    fontSize: 19,
+    fontFamily: "LiuJianMaoCao_400Regular",
+    fontSize: 23,
     alignItems: "center",
-    color: "#ecd9d4",
-    fontFamily: "Signika_400Regular",
+    color: "#fffbf9",
+    paddingBottom: 4,
   },
   input: {
     borderColor: "black",

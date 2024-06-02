@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   base: {
-    backgroundColor: "#9fb7cd",
+    backgroundColor: "#fa6559",
     flex: 1,
   },
   yesno: {
