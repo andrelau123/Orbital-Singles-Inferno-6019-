@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { getDatabase } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -9,6 +10,7 @@ import { useEffect, useState } from "react";
 const firebaseConfig = {
   apiKey: "AIzaSyCJEJ9ORDnuR_kHVk1si1Y6A0ecg5Xh25Q",
   authDomain: "singles-inferno-1da30.firebaseapp.com",
+  databaseURL: "https://singles-inferno-1da30-default-rtdb.firebaseio.com",
   projectId: "singles-inferno-1da30",
   storageBucket: "singles-inferno-1da30.appspot.com",
   messagingSenderId: "971447917612",
@@ -18,29 +20,5 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-export { app, auth };
-
-export function useAuth() {
-  const [currentUser, setCurrentUser] = useState();
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, user => setCurrentUser(user));
-    return unsub;
-  }, [])
-
-  return currentUser;
-}
-
-export async function upload(file, currentUser, setLoading) {
-  const fileRef = ref(storage, currentUser.uid + '.png');
-
-  setLoading(true);
-  
-  const snapshot = await uploadBytes(fileRef, file);
-  const photoURL = await getDownloadURL(fileRef);
-
-  updateProfile(currentUser, {photoURL});
-  
-  setLoading(false);
-  alert("Uploaded file!");
-}
+const database = getDatabase(app);
+export { app, auth, database };

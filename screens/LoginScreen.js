@@ -7,19 +7,19 @@ import {
   TextInputProps,
 } from "react-native";
 import Button from "../components/Button";
-import { useEffect, useState, ComponentProps } from "react";
+import { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { app, auth } from "../firebase";
+import { auth, database } from "../firebase";
 import {
   useFonts,
   LiuJianMaoCao_400Regular,
 } from "@expo-google-fonts/liu-jian-mao-cao";
 import FAIcon from "react-native-vector-icons/FontAwesome";
-
+import { ref, set } from "firebase/database";
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +34,17 @@ function LoginScreen({ navigation }) {
     });
     return unsubscibe;
   }, []);
+
+  function writeUserData(email, id) {
+    set(ref(database, "users/" + id), {
+      username: email,
+      name: "",
+      best: "",
+      worst: "",
+      gender: "",
+      telegram: "",
+    });
+  }
 
   function handleEmail(userEmailInput) {
     setEmail(userEmailInput);
@@ -53,9 +64,13 @@ function LoginScreen({ navigation }) {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredetial) => {
         const user = userCredetial.user;
+        writeUserData(user.email, user.uid);
         console.log(user.email);
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        const message = handleError(error.message);
+        alert(message);
+      });
     reset();
   }
 
@@ -65,8 +80,28 @@ function LoginScreen({ navigation }) {
         const user = userCredetial.user;
         console.log(user.email);
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        const message = handleError(error.message);
+        alert(message);
+      });
     reset();
+  }
+
+  function handleError(error) {
+    switch (error) {
+      case "Firebase: Error (auth/invalid-email).":
+        return "Please enter a valid email address";
+      case "Firebase: Error (auth/missing-password).":
+        return "Please enter a valid password";
+      case "Firebase: Error (auth/email-already-in-use).":
+        return "Email already in use";
+      case "Firebase: Error (auth/invalid-credential).":
+        return "Wrong username or password. Please try again";
+      case "Firebase: Password should be at least 6 characters (auth/weak-password).":
+        return "Your password should be al least 6 characters long.";
+      default:
+        error;
+    }
   }
   return (
     <View style={styles.main}>
@@ -137,6 +172,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
+    fontSize: 15,
   },
   subheader: {
     fontFamily: "LiuJianMaoCao_400Regular",

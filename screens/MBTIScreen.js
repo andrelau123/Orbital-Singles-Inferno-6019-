@@ -3,11 +3,13 @@ import YesnoButton from "../components/YesnoButton";
 import { useState, useContext } from "react";
 import Helperfunc from "../components/Helperfunc";
 import { Khand_400Regular, useFonts } from "@expo-google-fonts/khand";
-import { DetailsContext } from "../store/context/details";
+import { update } from "firebase/database";
+import { database } from "../firebase";
+import { ref } from "firebase/database";
+import { auth } from "../firebase";
 
 function MBTIScreen({ navigation }) {
   const font = useFonts({ Khand_400Regular });
-  const detailsctx = useContext(DetailsContext);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [ranking, setRanking] = useState({
     extraversion: 0,
@@ -23,9 +25,11 @@ function MBTIScreen({ navigation }) {
     if (currentQuestion == 49) {
       const result = Object.entries(ranking);
       const maxmin = Helperfunc(result);
-      detailsctx.updateDetails("best", maxmin[0]);
-      detailsctx.updateDetails("worst", maxmin[1]);
-      console.log(detailsctx);
+      const updates = {
+        best: maxmin[0],
+        worst: maxmin[1],
+      };
+      update(ref(database, "users/" + auth.currentUser.uid), updates);
 
       navigation.navigate("Details");
       return;
@@ -33,6 +37,14 @@ function MBTIScreen({ navigation }) {
     nextQuestion();
   }
   function noHandler() {
+    updateRanking();
+    if (currentQuestion == 49) {
+      const result = Object.entries(ranking);
+      const maxmin = Helperfunc(result);
+
+      navigation.navigate("Details");
+      return;
+    }
     nextQuestion();
   }
 

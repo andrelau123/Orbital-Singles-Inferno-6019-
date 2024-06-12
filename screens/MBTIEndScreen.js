@@ -1,14 +1,20 @@
 import { useContext } from "react";
 import { DetailsContext } from "../store/context/details";
 import Button from "../components/Button";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Linking } from "react-native";
+import axios from "axios";
 
 function MBTIEndScreen({ navigation }) {
   const ctx = useContext(DetailsContext);
   console.log(ctx);
 
   function handleHome() {
-    navigation.back("home");
+    axios
+      .get(
+        "https://api.personalitypolice.com/v1/new_test?api_key=7f3ac8e0-bbba-434a-b686-53f389924567ask_gender='true'"
+      )
+      .then((res) => console.log(res.data));
+    navigation.replace("Home");
   }
   return (
     <View style={styles.base}>

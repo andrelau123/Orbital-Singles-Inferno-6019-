@@ -1,14 +1,13 @@
 import { TextInput, View, Text, StyleSheet } from "react-native";
 import Button from "../components/Button";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import YesnoButton2 from "../components/YesnoButton2";
-import { DetailsContext } from "../store/context/details";
-
+import { database, auth } from "../firebase";
+import { update, ref } from "firebase/database";
 function GetDetailsScreen({ navigation }) {
   const [name, setName] = useState("");
   const [telegram, setTelegram] = useState("");
   const [gender, setGender] = useState("");
-  const detailsctx = useContext(DetailsContext);
 
   function handleName(input) {
     setName(input);
@@ -27,10 +26,15 @@ function GetDetailsScreen({ navigation }) {
   }
 
   function handleResults() {
-    detailsctx.updateDetails("name", name);
-    detailsctx.updateDetails("telegram", telegram);
-    detailsctx.updateDetails("gender", gender);
-    navigation.navigate("mbtiresults");
+    const uid = auth.currentUser.uid;
+    const updates = {
+      name: name,
+      telegram: telegram,
+      gender: gender,
+    };
+    update(ref(database, "users/" + uid), updates);
+
+    navigation.navigate("Home");
   }
   return (
     <View style={styles.base}>
@@ -68,7 +72,7 @@ function GetDetailsScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.resultsContainer}>
-        <Button onPress={handleResults}> Get Results</Button>
+        <Button onPress={handleResults}> GET RESULTS</Button>
       </View>
     </View>
   );
@@ -79,7 +83,7 @@ export default GetDetailsScreen;
 const styles = StyleSheet.create({
   base: {
     flex: 1,
-    backgroundColor: "#9fb7cd",
+    backgroundColor: "#fa6559",
   },
 
   inputContainer: {
@@ -102,6 +106,7 @@ const styles = StyleSheet.create({
   },
   resultsContainer: {
     flex: 1,
+    paddingHorizontal: 41,
   },
   genderTextContainer: {
     padding: 12,
