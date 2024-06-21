@@ -39,6 +39,7 @@ function MBTIScreen({ navigation }) {
       const updates = {
         best: maxmin[0],
         worst: maxmin[1],
+        ranking: maxmin[2],
       };
       update(ref(database, "users/" + auth.currentUser.uid), updates);
 

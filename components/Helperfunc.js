@@ -19,5 +19,7 @@ export default function Helperfunc(array) {
       min = key;
     }
   }
-  return [max, min];
+
+  let ranking = max + min;
+  return [max, min, ranking];
 }

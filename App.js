@@ -7,6 +7,7 @@ import MBTIScreen from "./screens/MBTIScreen";
 import GetDetailsScreen from "./screens/GetDetailsScreen";
 import DetailsContextProvider from "./store/context/details";
 import MBTIEndScreen from "./screens/MBTIEndScreen";
+import MatchScreen from "./screens/MatchScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ export default function App() {
             <Stack.Screen name="MBTI" component={MBTIScreen} />
             <Stack.Screen name="Details" component={GetDetailsScreen} />
             <Stack.Screen name="mbtiresults" component={MBTIEndScreen} />
+            <Stack.Screen name="Match" component={MatchScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </DetailsContextProvider>

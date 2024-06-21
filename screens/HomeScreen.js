@@ -40,12 +40,17 @@ function HomeScreen({ navigation }) {
   useEffect(() => {
     onValue(refer, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
       setname(data.name);
       setgender(data.gender);
       setbest(data.best);
       setworst(data.worst);
-      setmatch(data.mymatch);
+      if (data.mymatch == "-") {
+        setmatch(data.mymatch);
+      } else {
+        onValue(ref(database, "users/" + data.mymatch), (snapshot) => {
+          setmatch(snapshot.val().telegram);
+        });
+      }
     });
   }, []);
 
@@ -61,6 +66,7 @@ function HomeScreen({ navigation }) {
 
   function navigateToMatchingPage() {
     GetMatch(useruid);
+    navigation.navigate("Match");
   }
 
   return (
