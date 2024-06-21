@@ -92,10 +92,12 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   input: {
-    borderWidth: 1,
+    borderWidth: 2,
     padding: 10,
     borderRadius: 6,
     marginHorizontal: 8,
+    backgroundColor: "#db8273",
+    borderColor: "white",
   },
   genderContainer: {
     flex: 1,
@@ -115,5 +117,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     marginHorizontal: 8,
     fontSize: 13,
+    color: "white",
   },
 });

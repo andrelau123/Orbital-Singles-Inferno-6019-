@@ -1,8 +1,8 @@
 import { Pressable, View, StyleSheet, Text } from "react-native";
-import { useFonts, Signika_700Bold } from "@expo-google-fonts/signika";
+import { useFonts, PlayfairDisplay_700Bold } from "@expo-google-fonts/dev";
 
-function Button({ children, onPress }) {
-  const fonts = useFonts({ Signika_700Bold });
+function YesButton({ children, onPress }) {
+  const fonts = useFonts({ PlayfairDisplay_700Bold });
   return (
     <View style={styles.buttonContainer}>
       <Pressable
@@ -16,7 +16,7 @@ function Button({ children, onPress }) {
     </View>
   );
 }
-export default Button;
+export default YesButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
     shadowRadius: 0.35,
   },
   button: {
-    borderRadius: 34,
+    borderRadius: 10,
     borderWidth: 4,
-    padding: 8,
-    paddingVertical: 15,
-    paddingHorizontal: 95,
+    padding: 4,
+    paddingVertical: 18,
     backgroundColor: "#d56e66",
-    borderColor: "#dcd7cd",
+    borderColor: "#59754e",
+    marginHorizontal: 25,
   },
 
   buttonText: {
@@ -42,9 +42,10 @@ const styles = StyleSheet.create({
     color: "#eee9e9",
     fontFamily: "Sans Serif",
     fontWeight: "bold",
-    fontSize: 17,
+    fontSize: 20,
   },
   pressed: {
     opacity: 0.75,
+    backgroundColor: "#80ba64",
   },
 });

@@ -1,27 +1,38 @@
 import { Text, View, Alert, StyleSheet } from "react-native";
-import YesnoButton from "../components/YesnoButton";
-import { useState, useContext } from "react";
+import YesButton from "../components/YesButton";
+import NoButton from "../components/NoButton";
+import { useState } from "react";
 import Helperfunc from "../components/Helperfunc";
-import { Khand_400Regular, useFonts } from "@expo-google-fonts/khand";
+import {
+  PlayfairDisplay_700Bold,
+  ShantellSans_400Regular,
+} from "@expo-google-fonts/dev";
 import { update } from "firebase/database";
 import { database } from "../firebase";
 import { ref } from "firebase/database";
 import { auth } from "../firebase";
+import { useFonts } from "expo-font";
+import * as Progress from "react-native-progress";
 
 function MBTIScreen({ navigation }) {
-  const font = useFonts({ Khand_400Regular });
+  const font = useFonts({
+    PlayfairDisplay_700Bold,
+    ShantellSans_400Regular,
+  });
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [ranking, setRanking] = useState({
-    extraversion: 0,
-    agreeableness: 0,
-    conscientiousness: 0,
-    emotional_stability: 0,
-    intellect: 0,
+    extraversion: 0, // ranking :1
+    agreeableness: 0, // ranking :2
+    conscientiousness: 0, // ranking :3
+    emotional_stability: 0, // ranking :4
+    intellect: 0, // ranking :5
   });
+  const [progressbar, setprogress] = useState(0);
   const file = require("./questions.json");
 
   function yesHandler() {
     updateRanking();
+    updateprogress();
     if (currentQuestion == 49) {
       const result = Object.entries(ranking);
       const maxmin = Helperfunc(result);
@@ -38,10 +49,15 @@ function MBTIScreen({ navigation }) {
   }
   function noHandler() {
     updateRanking();
+    updateprogress();
     if (currentQuestion == 49) {
       const result = Object.entries(ranking);
       const maxmin = Helperfunc(result);
-
+      const updates = {
+        best: maxmin[0],
+        worst: maxmin[1],
+      };
+      update(ref(database, "users/" + auth.currentUser.uid), updates);
       navigation.navigate("Details");
       return;
     }
@@ -50,6 +66,10 @@ function MBTIScreen({ navigation }) {
 
   function nextQuestion() {
     setCurrentQuestion((curr) => curr + 1);
+  }
+
+  function updateprogress() {
+    setprogress((curr) => curr + 0.02);
   }
 
   function updateRanking() {
@@ -63,16 +83,26 @@ function MBTIScreen({ navigation }) {
   }
   return (
     <View style={styles.base}>
-      <Text style={styles.Itext}>I...</Text>
-      <View style={styles.test}>
+      <Text style={styles.Itext}>
+        Pick the option that you resonate most with!!
+      </Text>
+      <View style={styles.progressbar}>
+        <Progress.Bar
+          color="#f6d9c1"
+          borderColor="#f6d9c1"
+          width={null}
+          progress={progressbar}
+        />
+      </View>
+      <View style={styles.qncontainer}>
         <Text style={styles.text}>{file[currentQuestion].question}</Text>
       </View>
       <View style={styles.yesno}>
         <View style={styles.yesnoButton}>
-          <YesnoButton onPress={yesHandler}>Yes</YesnoButton>
+          <YesButton onPress={yesHandler}>YES</YesButton>
         </View>
         <View style={styles.yesnoButton}>
-          <YesnoButton onPress={noHandler}>No</YesnoButton>
+          <NoButton onPress={noHandler}>NO</NoButton>
         </View>
       </View>
     </View>
@@ -93,30 +123,44 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 2,
     marginTop: 100,
+    justifyContent: "space-evenly",
+    marginHorizontal: 15,
   },
   next: {},
   text: {
     textAlign: "center",
-    fontSize: 35,
+    textAlignVertical: "center",
+    fontSize: 32,
     padding: 8,
     marginTop: 35,
-    fontFamily: "Khand_400Regular",
     margin: 30,
+    fontFamily: "PlayfairDisplay_700Bold",
+    color: "#f6d9c1",
   },
 
-  yesnoButton: {
-    flex: 1,
-  },
+  yesnoButton: { flex: 2 },
   Itext: {
-    padding: 12,
-    fontSize: 40,
-    fontStyle: "italic",
-    fontFamily: "Baskerville",
-    marginLeft: 25,
-    marginTop: 20,
+    color: "white",
+    fontFamily: "ShantellSans_400Regular",
     flex: 1,
+    fontSize: 20,
+    textAlign: "center",
+    padding: 16,
+    marginHorizontal: 18,
+    marginTop: 25,
   },
-  test: {
-    flex: 2,
+  qncontainer: {
+    flex: 4,
+    backgroundColor: "#a3293f",
+    marginHorizontal: 18,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+  },
+  progressbar: {
+    flex: 1,
+    padding: 16,
+    marginHorizontal: 16,
   },
 });

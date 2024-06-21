@@ -1,6 +1,8 @@
 import { Pressable, View, StyleSheet, Text } from "react-native";
+import { useFonts, PlayfairDisplay_700Bold } from "@expo-google-fonts/dev";
 
-function YesnoButton({ children, onPress }) {
+function NoButton({ children, onPress }) {
+  const fonts = useFonts({ PlayfairDisplay_700Bold });
   return (
     <View style={styles.buttonContainer}>
       <Pressable
@@ -14,34 +16,36 @@ function YesnoButton({ children, onPress }) {
     </View>
   );
 }
-
-export default YesnoButton;
+export default NoButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
     padding: 4,
-    shadowColor: "#29395a",
-    shadowOffset: { width: 0, height: 2 },
+    shadowColor: "#823b31",
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 6,
     shadowRadius: 0.35,
   },
   button: {
-    borderRadius: 8,
-    overflow: "hidden",
-    borderWidth: 1,
-    padding: 8,
-    marginHorizontal: "17%",
+    borderRadius: 10,
+    borderWidth: 4,
+    padding: 4,
     paddingVertical: 18,
-    backgroundColor: "#45355a",
-    borderColor: "#fcfbfb",
+    backgroundColor: "#d56e66",
+    borderColor: "#e43d3d",
+    marginHorizontal: 25,
   },
+
   buttonText: {
+    position: "static",
     textAlign: "center",
+    color: "#eee9e9",
+    fontFamily: "Sans Serif",
     fontWeight: "bold",
-    color: "#ede8ec",
+    fontSize: 20,
   },
   pressed: {
     opacity: 0.75,
-    backgroundColor: "#2f9088",
+    backgroundColor: "#d92727",
   },
 });

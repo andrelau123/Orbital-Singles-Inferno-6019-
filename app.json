@@ -23,7 +23,8 @@
       },
       "runtimeVersion": {
         "policy": "appVersion"
-      }
+      },
+      "package": "com.andre_lawlll.singlesinferno"
     },
     "web": {
       "favicon": "./assets/icon.png"

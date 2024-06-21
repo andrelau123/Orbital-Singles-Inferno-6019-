@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   Image,
-  TextInputProps,
+  KeyboardAvoidingView,
 } from "react-native";
 import Button from "../components/Button";
 import { useEffect, useState } from "react";
@@ -14,16 +14,13 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth, database } from "../firebase";
-import {
-  useFonts,
-  LiuJianMaoCao_400Regular,
-} from "@expo-google-fonts/liu-jian-mao-cao";
+import { useFonts, TheGirlNextDoor_400Regular } from "@expo-google-fonts/dev";
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import { ref, set } from "firebase/database";
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const font = useFonts({ LiuJianMaoCao_400Regular });
+  const font = useFonts({ TheGirlNextDoor_400Regular });
 
   useEffect(() => {
     const unsubscibe = onAuthStateChanged(auth, (user) => {
@@ -43,12 +40,13 @@ function LoginScreen({ navigation }) {
       worst: "",
       gender: "",
       telegram: "",
+      mymatch: "-",
+      ranking: "",
     });
   }
 
   function handleEmail(userEmailInput) {
     setEmail(userEmailInput);
-    console.log(email);
   }
 
   function handlePassword(userPassword) {
@@ -114,12 +112,17 @@ function LoginScreen({ navigation }) {
           <Text style={styles.title}>Single's Inferno</Text>
         </View>
         <Text></Text>
-        <Text style={styles.textInputHeader}>Username</Text>
+
         <View style={styles.input}>
-          <FAIcon name="user" size={25} color="#ffffff" style={styles.icon} />
+          <FAIcon
+            name="user"
+            size={25}
+            color="rgb(202, 152, 133)"
+            style={styles.icon}
+          />
           <TextInput
             style={styles.textInput}
-            color="#f4f1f1"
+            color="black"
             placeholder="e.g. xxx@gmail.com"
             onChangeText={handleEmail}
             autoCapitalize="none"
@@ -127,20 +130,19 @@ function LoginScreen({ navigation }) {
             value={email}
           />
         </View>
-        <Text></Text>
+        <Text style={styles.spacing}></Text>
 
         <View style={styles.input}>
-          <Text style={styles.textInputHeader2}>Password</Text>
           <FAIcon
             name="lock"
             aria-hidden="true"
             size={25}
-            color="#ffffff"
+            color="rgb(202, 152, 133)"
             style={styles.icon}
           />
           <TextInput
             style={styles.textInput}
-            color="#fffdfd"
+            color="black"
             placeholder="e.g. iLoveSinglesInferno"
             onChangeText={handlePassword}
             autoCapitalize="none"
@@ -175,21 +177,22 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   subheader: {
-    fontFamily: "LiuJianMaoCao_400Regular",
+    fontFamily: "TheGirlNextDoor_400Regular",
     fontSize: 23,
     alignItems: "center",
     color: "#fffbf9",
-    paddingBottom: 4,
   },
   input: {
     borderColor: "black",
-    borderWidth: 2,
+    borderWidth: 3,
     borderRadius: 50,
-    width: 270,
+    width: 290,
     flexDirection: "row",
     padding: 8,
     textAlign: "center",
     borderColor: "white",
+    baccolor: "#977d67",
+    backgroundColor: "#f6d9c1",
   },
   main: {
     flex: 1,
@@ -212,11 +215,11 @@ const styles = StyleSheet.create({
   },
   textInputHeader: {
     position: "absolute",
-    top: 100,
-    left: 83,
+    top: 110,
+    left: 60,
     zIndex: 100,
     color: "#ffffff",
-    backgroundColor: "#fa6559",
+    backgroundColor: "transparent",
     fontFamily: "Sans serif",
     width: 110,
     textAlign: "center",
@@ -265,5 +268,8 @@ const styles = StyleSheet.create({
   icon: {
     marginLeft: 4,
     marginTop: 3,
+  },
+  spacing: {
+    padding: 1,
   },
 });
