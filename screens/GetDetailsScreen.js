@@ -1,13 +1,16 @@
 import { TextInput, View, Text, StyleSheet } from "react-native";
 import Button from "../components/Button";
 import { useState } from "react";
-import YesnoButton2 from "../components/YesnoButton2";
+import MaleFemaleButton from "../components/MaleFemaleButton";
 import { database, auth } from "../firebase";
 import { update, ref } from "firebase/database";
 function GetDetailsScreen({ navigation }) {
   const [name, setName] = useState("");
   const [telegram, setTelegram] = useState("");
   const [gender, setGender] = useState("");
+  const [malecolor, setmalecolor] = useState("#d35b5b");
+  const [femalecolor, setfemalecolor] = useState("#d35b5b");
+  const [clicked, setclicked] = useState(false);
 
   function handleName(input) {
     setName(input);
@@ -18,11 +21,27 @@ function GetDetailsScreen({ navigation }) {
   }
 
   function handleMale() {
-    setGender("male");
+    if (!clicked) {
+      setmalecolor("#59a6a7");
+      setGender("male");
+      setclicked(true);
+    } else {
+      setmalecolor("#d35b5b");
+      setGender("male");
+      setclicked(false);
+    }
   }
 
   function handleFemale() {
-    setGender("female");
+    if (!clicked) {
+      setfemalecolor("#9b1b25");
+      setGender("female");
+      setclicked(true);
+    } else {
+      setfemalecolor("#d35b5b");
+      setGender("female");
+      setclicked(false);
+    }
   }
 
   function handleResults() {
@@ -39,7 +58,7 @@ function GetDetailsScreen({ navigation }) {
   return (
     <View style={styles.base}>
       <View style={styles.inputContainer}>
-        <View>
+        <View style={styles.eachfield}>
           <Text style={styles.text}>Name: </Text>
           <TextInput
             style={styles.input}
@@ -48,7 +67,7 @@ function GetDetailsScreen({ navigation }) {
             value={name}
           />
         </View>
-        <View>
+        <View style={styles.eachfield}>
           <Text style={styles.text}>Telegram: </Text>
           <TextInput
             style={styles.input}
@@ -65,10 +84,14 @@ function GetDetailsScreen({ navigation }) {
       </View>
       <View style={styles.genderContainer}>
         <View style={styles.genderButton}>
-          <YesnoButton2 onPress={handleMale}>Male</YesnoButton2>
+          <MaleFemaleButton Press={handleMale} color={malecolor}>
+            Male
+          </MaleFemaleButton>
         </View>
         <View style={styles.genderButton}>
-          <YesnoButton2 onPress={handleFemale}>Female</YesnoButton2>
+          <MaleFemaleButton Press={handleFemale} color={femalecolor}>
+            Female
+          </MaleFemaleButton>
         </View>
       </View>
       <View style={styles.resultsContainer}>
@@ -96,12 +119,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 6,
     marginHorizontal: 8,
-    backgroundColor: "#db8273",
+    backgroundColor: "#f6d9c1",
     borderColor: "white",
   },
   genderContainer: {
     flex: 1,
     flexDirection: "row",
+    padding: 12,
   },
   genderButton: {
     flex: 1,
@@ -111,12 +135,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 41,
   },
   genderTextContainer: {
-    padding: 12,
+    padding: 24,
   },
   text: {
     paddingVertical: 8,
     marginHorizontal: 8,
-    fontSize: 13,
+    fontSize: 15,
     color: "white",
+    fontFamily: "Sans Serif",
+    fontWeight: "600",
+  },
+  eachfield: {
+    padding: 8,
   },
 });

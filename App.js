@@ -8,10 +8,27 @@ import GetDetailsScreen from "./screens/GetDetailsScreen";
 import DetailsContextProvider from "./store/context/details";
 import MBTIEndScreen from "./screens/MBTIEndScreen";
 import MatchScreen from "./screens/MatchScreen";
+import { useFonts } from "expo-font";
+import {
+  PlayfairDisplay_700Bold,
+  TheGirlNextDoor_400Regular,
+  ShantellSans_400Regular,
+} from "@expo-google-fonts/dev";
+import AppLoading from "expo-app-loading";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [fontsloaded] = useFonts({
+    PlayfairDisplay_700Bold,
+    TheGirlNextDoor_400Regular,
+    ShantellSans_400Regular,
+  });
+
+  if (!fontsloaded) {
+    <AppLoading />;
+  }
+
   return (
     <>
       <DetailsContextProvider>

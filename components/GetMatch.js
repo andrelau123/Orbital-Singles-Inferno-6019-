@@ -4,39 +4,47 @@ import axios from "axios";
 
 export default function GetMatch(uid) {
   const reference = ref(database, "users/" + uid);
-  const refmatch = ref(database, "matchpool/" + uid);
 
-  get(reference)
+  return get(reference)
     .then((snapshot) => {
       if (snapshot.exists()) {
         const snapshott = snapshot.val();
         const match = snapshott.mymatch;
         const ranking = snapshott.ranking;
+        const gender = snapshott.gender;
         if (match != "-") {
           console.log("you have a match already!!");
           return match;
         } else {
           console.log("you dont currently have a match..");
+          let findmatchpoolref;
+          let genderopp;
+          if (gender == "male") {
+            findmatchpoolref =
+              "https://singles-inferno-1da30-default-rtdb.firebaseio.com/matchpool/female.json";
+            genderopp = "female";
+          } else {
+            findmatchpoolref =
+              "https://singles-inferno-1da30-default-rtdb.firebaseio.com/matchpool/male.json";
+            genderopp = "male";
+          }
           axios
-            .get(
-              "https://singles-inferno-1da30-default-rtdb.firebaseio.com/matchpool.json"
-            )
-
+            .get(findmatchpoolref)
             .then((response) => {
+              set(ref(database, "matchpool/" + gender + "/" + uid), snapshott);
               for (const key in response.data) {
                 if (response.data[key].ranking == ranking) {
                   if (key != uid) {
                     console.log(response.data[key].telegram);
                     update(reference, { mymatch: key });
                     update(ref(database, "users/" + key), { mymatch: uid });
-                    remove(refmatch);
-                    remove(ref(database, "matchpool/" + key));
+                    remove(ref(database, "matchpool/" + genderopp + "/" + key));
+                    remove(ref(database, "matchpool/" + gender + "/" + uid));
                     return key;
                   }
                 }
               }
-              set(refmatch, snapshott);
-              return null;
+              return 1;
             })
             .catch((error) => {
               console.log(error);

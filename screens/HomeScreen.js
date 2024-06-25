@@ -5,6 +5,7 @@ import {
   Image,
   ScrollView,
   ImageBackground,
+  Alert,
 } from "react-native";
 import Button from "../components/Button";
 import SignOutButton from "../components/SignOutButton";
@@ -18,7 +19,6 @@ import {
   ShantellSans_400Regular,
 } from "@expo-google-fonts/dev";
 import { useState, useEffect } from "react";
-import GetMatch from "../components/GetMatch";
 
 function HomeScreen({ navigation }) {
   const useruid = auth.currentUser.uid;
@@ -65,18 +65,49 @@ function HomeScreen({ navigation }) {
   }
 
   function navigateToMatchingPage() {
-    GetMatch(useruid);
+    if (best == "") {
+      Alert.alert("Please complete an MBTI test before proceeding");
+      return;
+    }
     navigation.navigate("Match");
+  }
+
+  function naviagtetoActivityPage() {
+    if (best == "") {
+      Alert.alert("Please complete an MBTI test before proceeding");
+      return;
+    } else if (match == "-") {
+      Alert.alert("Please find a match before proceeding");
+    }
+  }
+
+  function RenderImage() {
+    if (gender == "") {
+      return (
+        <Image
+          source={require("../assets/defprofile.png")}
+          style={styles.image}
+        />
+      );
+    } else if (gender == "male") {
+      return (
+        <Image style={styles.image} source={require("../assets/avatar.png")} />
+      );
+    } else {
+      return (
+        <Image
+          style={styles.image}
+          source={require("../assets/femaleprofile.png")}
+        />
+      );
+    }
   }
 
   return (
     <View style={styles.main}>
       <ScrollView>
         <View style={styles.profile}>
-          <Image
-            style={styles.image}
-            source={require("../assets/avatar.png")}
-          />
+          <RenderImage />
           <Text style={styles.text}>Welcome back, {name}!!!</Text>
         </View>
         <View style={styles.traits}>
@@ -102,6 +133,9 @@ function HomeScreen({ navigation }) {
           </View>
           <View style={styles.buttonContainer}>
             <Button onPress={navigateToMatchingPage}>GET A MATCH</Button>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button onPress={naviagtetoActivityPage}>GENERATE ACTIVITY</Button>
           </View>
         </View>
         <View style={styles.signoutbutton}>

@@ -21,11 +21,11 @@ function MBTIScreen({ navigation }) {
   });
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [ranking, setRanking] = useState({
-    extraversion: 0, // ranking :1
-    agreeableness: 0, // ranking :2
-    conscientiousness: 0, // ranking :3
-    emotional_stability: 0, // ranking :4
-    intellect: 0, // ranking :5
+    extraversion: 0,
+    agreeableness: 0,
+    conscientiousness: 0,
+    emotional_stability: 0,
+    intellect: 0,
   });
   const [progressbar, setprogress] = useState(0);
   const file = require("./questions.json");

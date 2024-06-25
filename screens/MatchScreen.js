@@ -1,9 +1,76 @@
-import { View, Text, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
+import GetMatch from "../components/GetMatch";
+import { auth, database } from "../firebase";
+import { get, ref } from "firebase/database";
+import { useFonts, LoveYaLikeASister_400Regular } from "@expo-google-fonts/dev";
 
 function MatchScreen() {
+  const uid = auth.currentUser.uid;
+  const [matchid, setmatchid] = useState("");
+  const [matchname, setmatchname] = useState("");
+  const [matchtele, settele] = useState("");
+  const font = useFonts({ LoveYaLikeASister_400Regular });
+
+  useEffect(() => {
+    GetMatch(uid).then((res) => {
+      setmatchid(res);
+    });
+  }, []);
+  if (matchid != null) {
+    get(ref(database, "users/" + matchid))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setmatchname(snapshot.val().name);
+          settele(snapshot.val().telegram);
+        }
+      })
+      .catch((error) => console.log(error));
+  }
+
+  function Render() {
+    if (matchid == null) {
+      return (
+        <View style={styles.matched}>
+          <View>
+            <Image
+              source={require("../assets/brokenheart.gif")}
+              style={styles.image}
+            />
+          </View>
+          <Text style={styles.matchtext}>
+            Ooopsss we couldn't find you a match....
+          </Text>
+          <Text style={styles.detailstext}>
+            Please try again sometime soon!!
+          </Text>
+        </View>
+      );
+    } else {
+      return (
+        <>
+          <Image source={require("../assets/heart.gif")} style={styles.image} />
+          <View style={styles.matched}>
+            <Text style={styles.matchtext}>You have been matched!!!</Text>
+          </View>
+          <View style={styles.detailscontainer}>
+            <Text style={styles.detailstext}>
+              Your matches' name : {matchname}
+            </Text>
+            <Text style={styles.detailstext}>
+              Your matches' telegram handle : @ {matchtele}
+            </Text>
+          </View>
+        </>
+      );
+    }
+  }
+
   return (
     <View style={styles.main}>
-      <Text>test</Text>
+      <View style={styles.matchcontainer}>
+        <Render />
+      </View>
     </View>
   );
 }
@@ -14,5 +81,50 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: "#fa6559",
+  },
+
+  matchcontainer: {
+    padding: 8,
+    textAlign: "center",
+    backgroundColor: "#e0d1c6",
+    margin: 24,
+    flex: 1,
+    borderRadius: 16,
+    shadowColor: "#823b31",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 16,
+    shadowRadius: 0.35,
+    paddingVertical: 12,
+    marginVertical: 30,
+  },
+  matchtext: {
+    textAlign: "center",
+    fontSize: 43,
+    padding: 10,
+    flex: 1,
+    fontFamily: "LoveYaLikeASister_400Regular",
+  },
+  matched: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  detailscontainer: {
+    flex: 1,
+    padding: 8,
+  },
+  detailstext: {
+    padding: 8,
+    fontFamily: "LoveYaLikeASister_400Regular",
+    fontSize: 18,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    alignSelf: "center",
+    justifyContent: "flex-center",
+    marginTop: 25,
+  },
+  imagecontainer: {
+    flex: 1,
   },
 });
