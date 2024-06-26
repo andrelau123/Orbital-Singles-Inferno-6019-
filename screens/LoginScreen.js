@@ -14,13 +14,13 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth, database } from "../firebase";
-import { useFonts, TheGirlNextDoor_400Regular } from "@expo-google-fonts/dev";
+import { useFonts, LoveYaLikeASister_400Regular } from "@expo-google-fonts/dev";
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import { ref, set } from "firebase/database";
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const font = useFonts({ TheGirlNextDoor_400Regular });
+  const font = useFonts({ LoveYaLikeASister_400Regular });
 
   useEffect(() => {
     const unsubscibe = onAuthStateChanged(auth, (user) => {
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   subheader: {
-    fontFamily: "TheGirlNextDoor_400Regular",
+    fontFamily: "LoveYaLikeASister_400Regular",
     fontSize: 23,
     alignItems: "center",
     color: "#fffbf9",
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     padding: 3,
   },
   buttonsContainer: {
-    marginTop: 30,
+    marginTop: 45,
     Color: "#000000",
   },
   image: {
@@ -270,6 +270,6 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   spacing: {
-    padding: 1,
+    padding: 0,
   },
 });

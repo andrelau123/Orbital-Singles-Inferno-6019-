@@ -17,16 +17,14 @@ function MatchScreen() {
       setmatchid(res);
     });
   }, []);
-  if (matchid != null) {
-    get(ref(database, "users/" + matchid))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          setmatchname(snapshot.val().name);
-          settele(snapshot.val().telegram);
-        }
-      })
-      .catch((error) => console.log(error));
-  }
+  get(ref(database, "users/" + matchid))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        setmatchname(snapshot.val().name);
+        settele(snapshot.val().telegram);
+      }
+    })
+    .catch((error) => console.log(error));
 
   function Render() {
     if (matchid == null) {

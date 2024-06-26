@@ -4,8 +4,8 @@ import NoButton from "../components/NoButton";
 import { useState } from "react";
 import Helperfunc from "../components/Helperfunc";
 import {
+  LoveYaLikeASister_400Regular,
   PlayfairDisplay_700Bold,
-  ShantellSans_400Regular,
 } from "@expo-google-fonts/dev";
 import { update } from "firebase/database";
 import { database } from "../firebase";
@@ -17,7 +17,7 @@ import * as Progress from "react-native-progress";
 function MBTIScreen({ navigation }) {
   const font = useFonts({
     PlayfairDisplay_700Bold,
-    ShantellSans_400Regular,
+    LoveYaLikeASister_400Regular,
   });
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [ranking, setRanking] = useState({
@@ -142,13 +142,13 @@ const styles = StyleSheet.create({
   yesnoButton: { flex: 2 },
   Itext: {
     color: "white",
-    fontFamily: "ShantellSans_400Regular",
+    fontFamily: "LoveYaLikeASister_400Regular",
     flex: 1,
     fontSize: 20,
     textAlign: "center",
     padding: 16,
     marginHorizontal: 18,
-    marginTop: 25,
+    marginTop: 30,
   },
   qncontainer: {
     flex: 4,

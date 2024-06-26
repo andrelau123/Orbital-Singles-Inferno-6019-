@@ -28,10 +28,10 @@ export default function GetMatch(uid) {
               "https://singles-inferno-1da30-default-rtdb.firebaseio.com/matchpool/male.json";
             genderopp = "male";
           }
+          set(ref(database, "matchpool/" + gender + "/" + uid), snapshott);
           axios
             .get(findmatchpoolref)
             .then((response) => {
-              set(ref(database, "matchpool/" + gender + "/" + uid), snapshott);
               for (const key in response.data) {
                 if (response.data[key].ranking == ranking) {
                   if (key != uid) {
