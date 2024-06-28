@@ -2,32 +2,30 @@ import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import GetMatch from "../components/GetMatch";
 import { auth, database } from "../firebase";
-import { get, ref } from "firebase/database";
+import { get, ref, onValue } from "firebase/database";
 import { useFonts, LoveYaLikeASister_400Regular } from "@expo-google-fonts/dev";
 
 function MatchScreen() {
   const uid = auth.currentUser.uid;
-  const [matchid, setmatchid] = useState("");
+  const [matchid, setmatchid] = useState(null);
   const [matchname, setmatchname] = useState("");
   const [matchtele, settele] = useState("");
   const font = useFonts({ LoveYaLikeASister_400Regular });
 
   useEffect(() => {
-    GetMatch(uid).then((res) => {
-      setmatchid(res);
-    });
-  }, []);
-  get(ref(database, "users/" + matchid))
-    .then((snapshot) => {
+    onValue(ref(database, "users/" + uid), (snapshot) => {
       if (snapshot.exists()) {
+        setmatchid(snapshot.val().mymatch);
+        console.log(snapshot.val().mymatch);
         setmatchname(snapshot.val().name);
         settele(snapshot.val().telegram);
+        console.log(matchid);
       }
-    })
-    .catch((error) => console.log(error));
+    });
+  }, []);
 
   function Render() {
-    if (matchid == null) {
+    if (matchid == "-") {
       return (
         <View style={styles.matched}>
           <View>
@@ -114,6 +112,7 @@ const styles = StyleSheet.create({
     padding: 8,
     fontFamily: "LoveYaLikeASister_400Regular",
     fontSize: 18,
+    textAlign: "center",
   },
   image: {
     width: 200,

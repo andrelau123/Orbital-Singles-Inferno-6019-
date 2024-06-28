@@ -19,6 +19,7 @@ import {
   ShantellSans_400Regular,
 } from "@expo-google-fonts/dev";
 import { useState, useEffect } from "react";
+import GetMatch from "../components/GetMatch";
 
 function HomeScreen({ navigation }) {
   const useruid = auth.currentUser.uid;
@@ -69,6 +70,7 @@ function HomeScreen({ navigation }) {
       Alert.alert("Please complete an MBTI test before proceeding");
       return;
     }
+    GetMatch(useruid);
     navigation.navigate("Match");
   }
 
@@ -78,7 +80,9 @@ function HomeScreen({ navigation }) {
       return;
     } else if (match == "-") {
       Alert.alert("Please find a match before proceeding");
+      return;
     }
+    navigation.navigate("Activities");
   }
 
   function RenderImage() {

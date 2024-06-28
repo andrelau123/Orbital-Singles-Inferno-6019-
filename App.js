@@ -8,6 +8,7 @@ import GetDetailsScreen from "./screens/GetDetailsScreen";
 import DetailsContextProvider from "./store/context/details";
 import MBTIEndScreen from "./screens/MBTIEndScreen";
 import MatchScreen from "./screens/MatchScreen";
+import ActivitiesScreen from "./screens/ActivitiesScreen";
 import { useFonts } from "expo-font";
 import {
   PlayfairDisplay_700Bold,
@@ -48,6 +49,7 @@ export default function App() {
             <Stack.Screen name="Details" component={GetDetailsScreen} />
             <Stack.Screen name="mbtiresults" component={MBTIEndScreen} />
             <Stack.Screen name="Match" component={MatchScreen} />
+            <Stack.Screen name="Activities" component={ActivitiesScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </DetailsContextProvider>

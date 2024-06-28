@@ -1,5 +1,5 @@
 import { ref, get, update, remove, set } from "firebase/database";
-import { database } from "../firebase";
+import { auth, database } from "../firebase";
 import axios from "axios";
 
 export default function GetMatch(uid) {
@@ -44,6 +44,7 @@ export default function GetMatch(uid) {
                   }
                 }
               }
+              console.log("one");
               return 1;
             })
             .catch((error) => {

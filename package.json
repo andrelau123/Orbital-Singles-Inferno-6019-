@@ -26,6 +26,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-updates": "~0.25.14",
     "firebase": "^10.12.1",
+    "openai": "^4.52.1",
     "papaparse": "^5.4.1",
     "react": "18.2.0",
     "react-native": "0.74.1",
