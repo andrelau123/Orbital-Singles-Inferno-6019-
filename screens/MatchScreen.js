@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import GetMatch from "../components/GetMatch";
 import { auth, database } from "../firebase";
 import { get, ref, onValue } from "firebase/database";
 import { useFonts, LoveYaLikeASister_400Regular } from "@expo-google-fonts/dev";
@@ -15,11 +14,14 @@ function MatchScreen() {
   useEffect(() => {
     onValue(ref(database, "users/" + uid), (snapshot) => {
       if (snapshot.exists()) {
-        setmatchid(snapshot.val().mymatch);
-        console.log(snapshot.val().mymatch);
-        setmatchname(snapshot.val().name);
-        settele(snapshot.val().telegram);
-        console.log(matchid);
+        const match = snapshot.val().mymatch;
+        setmatchid(match);
+        if (snapshot.val().mymatch != "-") {
+          onValue(ref(database, "users/" + match), (snapshot) => {
+            setmatchname(snapshot.val().name);
+            settele(snapshot.val().telegram);
+          });
+        }
       }
     });
   }, []);
