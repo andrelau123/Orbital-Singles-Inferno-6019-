@@ -1,7 +1,7 @@
 import { Pressable, View, StyleSheet, Text, Dimensions } from "react-native";
 import { useFonts, Signika_700Bold } from "@expo-google-fonts/signika";
 
-function Button({ children, onPress }) {
+function SignupButton({ children, onPress }) {
   const fonts = useFonts({ Signika_700Bold });
   return (
     <View style={styles.buttonContainer}>
@@ -16,7 +16,7 @@ function Button({ children, onPress }) {
     </View>
   );
 }
-export default Button;
+export default SignupButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     padding: 8,
     paddingVertical: 15,
     paddingHorizontal: 95,
-    backgroundColor: "#d56e66",
+    backgroundColor: "#9c6c81",
     borderColor: "#dcd7cd",
   },
 

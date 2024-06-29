@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import Button from "../components/Button";
 import { useEffect, useState } from "react";
@@ -17,6 +18,7 @@ import { auth, database } from "../firebase";
 import { useFonts, LoveYaLikeASister_400Regular } from "@expo-google-fonts/dev";
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import { ref, set } from "firebase/database";
+import SignupButton from "../components/SignupButton";
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -103,65 +105,75 @@ function LoginScreen({ navigation }) {
   }
   return (
     <View style={styles.main}>
-      <View style={styles.imageContainer}>
-        <Image source={require("../assets/Logo.png")} style={styles.image} />
-      </View>
-      <View style={styles.contentContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.subheader}>Ignite Your Love Life with</Text>
-          <Text style={styles.title}>Single's Inferno</Text>
-        </View>
-        <Text></Text>
+      <ScrollView style={styles.screen}>
+        <KeyboardAvoidingView style={styles.screen} behavior="position">
+          <View style={styles.main}>
+            <View style={styles.imageContainer}>
+              <Image
+                source={require("../assets/Logo.png")}
+                style={styles.image}
+              />
+            </View>
+            <View style={styles.contentContainer}>
+              <View style={styles.titleContainer}>
+                <Text style={styles.subheader}>Ignite Your Love Life with</Text>
+                <Text style={styles.title}>Single's Inferno</Text>
+              </View>
+              <Text style={styles.spacing}></Text>
 
-        <View style={styles.input}>
-          <FAIcon
-            name="user"
-            size={25}
-            color="rgb(202, 152, 133)"
-            style={styles.icon}
-          />
-          <TextInput
-            style={styles.textInput}
-            color="black"
-            placeholder="e.g. xxx@gmail.com"
-            onChangeText={handleEmail}
-            autoCapitalize="none"
-            autoCorrect={false}
-            value={email}
-          />
-        </View>
-        <Text style={styles.spacing}></Text>
+              <View style={styles.input}>
+                <FAIcon
+                  name="user"
+                  size={25}
+                  color="rgb(202, 152, 133)"
+                  style={styles.icon}
+                />
+                <TextInput
+                  style={styles.textInput}
+                  color="black"
+                  placeholder="e.g. xxx@gmail.com"
+                  onChangeText={handleEmail}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  value={email}
+                  textContentType="oneTimeCode"
+                />
+              </View>
+              <Text style={styles.spacing}></Text>
 
-        <View style={styles.input}>
-          <FAIcon
-            name="lock"
-            aria-hidden="true"
-            size={25}
-            color="rgb(202, 152, 133)"
-            style={styles.icon}
-          />
-          <TextInput
-            style={styles.textInput}
-            color="black"
-            placeholder="e.g. iLoveSinglesInferno"
-            onChangeText={handlePassword}
-            autoCapitalize="none"
-            autoCorrect={false}
-            value={password}
-            secureTextEntry={true}
-          />
-        </View>
-        <View style={styles.buttonsContainer}>
-          <View style={styles.buttonContainer}>
-            <Button onPress={handleSignUp} color="#fa6559">
-              SIGN UP
-            </Button>
+              <View style={styles.input}>
+                <FAIcon
+                  name="lock"
+                  aria-hidden="true"
+                  size={25}
+                  color="rgb(202, 152, 133)"
+                  style={styles.icon}
+                />
+                <TextInput
+                  style={styles.textInput}
+                  color="black"
+                  placeholder="e.g. iLoveSinglesInferno"
+                  onChangeText={handlePassword}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  value={password}
+                  secureTextEntry={true}
+                />
+              </View>
+              <View style={styles.buttonsContainer}>
+                <View style={styles.buttonContainer}>
+                  <SignupButton onPress={handleSignUp} color="#fa6559">
+                    SIGN UP
+                  </SignupButton>
+                </View>
+                <View style={styles.buttonContainer}>
+                  <Button onPress={handleSignIn}>LOGIN</Button>
+                </View>
+              </View>
+            </View>
           </View>
-          <View style={styles.buttonContainer}>
-            <Button onPress={handleSignIn}>LOGIN</Button>
-          </View>
-        </View>
-      </View>
+        </KeyboardAvoidingView>
+      </ScrollView>
     </View>
   );
 }
@@ -251,12 +263,11 @@ const styles = StyleSheet.create({
     Color: "#000000",
   },
   image: {
-    marginTop: 100,
-    width: 380,
-    height: 380,
+    width: 250,
+    height: 250,
   },
 
-  imageContainer: { justifyContent: "center", alignItems: "center", flex: 1 },
+  imageContainer: { justifyContent: "center", alignItems: "center" },
   contentContainer: {
     alignItems: "center",
     flex: 3,
@@ -270,6 +281,9 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   spacing: {
-    padding: 0,
+    padding: 4,
+  },
+  screen: {
+    flex: 1,
   },
 });
