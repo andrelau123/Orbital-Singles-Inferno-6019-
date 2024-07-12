@@ -1,4 +1,11 @@
-import { TextInput, View, Text, StyleSheet } from "react-native";
+import {
+  TextInput,
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 import Button from "../components/Button";
 import { useState } from "react";
 import MaleFemaleButton from "../components/MaleFemaleButton";
@@ -56,48 +63,52 @@ function GetDetailsScreen({ navigation }) {
     navigation.navigate("Home");
   }
   return (
-    <View style={styles.base}>
-      <View style={styles.inputContainer}>
-        <View style={styles.eachfield}>
-          <Text style={styles.text}>Name: </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="name"
-            onChangeText={handleName}
-            value={name}
-          />
+    <ScrollView style={styles.base}>
+      <KeyboardAvoidingView style={styles.screen}>
+        <View style={styles.base}>
+          <View style={styles.inputContainer}>
+            <View style={styles.eachfield}>
+              <Text style={styles.text}>Name: </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="name"
+                onChangeText={handleName}
+                value={name}
+              />
+            </View>
+            <View style={styles.eachfield}>
+              <Text style={styles.text}>Telegram: </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="telegram handle"
+                onChangeText={handleTelegram}
+                autoCapitalize="none"
+                autoCorrect={false}
+                value={telegram}
+              />
+            </View>
+          </View>
+          <View style={styles.genderTextContainer}>
+            <Text style={styles.text}>Gender:</Text>
+          </View>
+          <View style={styles.genderContainer}>
+            <View style={styles.genderButton}>
+              <MaleFemaleButton Press={handleMale} color={malecolor}>
+                Male
+              </MaleFemaleButton>
+            </View>
+            <View style={styles.genderButton}>
+              <MaleFemaleButton Press={handleFemale} color={femalecolor}>
+                Female
+              </MaleFemaleButton>
+            </View>
+          </View>
+          <View style={styles.resultsContainer}>
+            <Button onPress={handleResults}> GET RESULTS</Button>
+          </View>
         </View>
-        <View style={styles.eachfield}>
-          <Text style={styles.text}>Telegram: </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="telegram handle"
-            onChangeText={handleTelegram}
-            autoCapitalize="none"
-            autoCorrect={false}
-            value={telegram}
-          />
-        </View>
-      </View>
-      <View style={styles.genderTextContainer}>
-        <Text style={styles.text}>Gender:</Text>
-      </View>
-      <View style={styles.genderContainer}>
-        <View style={styles.genderButton}>
-          <MaleFemaleButton Press={handleMale} color={malecolor}>
-            Male
-          </MaleFemaleButton>
-        </View>
-        <View style={styles.genderButton}>
-          <MaleFemaleButton Press={handleFemale} color={femalecolor}>
-            Female
-          </MaleFemaleButton>
-        </View>
-      </View>
-      <View style={styles.resultsContainer}>
-        <Button onPress={handleResults}> GET RESULTS</Button>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
@@ -132,6 +143,7 @@ const styles = StyleSheet.create({
   },
   resultsContainer: {
     flex: 1,
+    marginTop: 135,
     paddingHorizontal: 41,
   },
   genderTextContainer: {
@@ -147,5 +159,8 @@ const styles = StyleSheet.create({
   },
   eachfield: {
     padding: 8,
+  },
+  screen: {
+    flex: 1,
   },
 });
