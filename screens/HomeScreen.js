@@ -85,6 +85,10 @@ function HomeScreen({ navigation }) {
     navigation.navigate("Activities");
   }
 
+  function naviagtetoSchedulePage() {
+    navigation.navigate("Schedule");
+  }
+
   function RenderImage() {
     if (gender == "") {
       return (
@@ -140,6 +144,9 @@ function HomeScreen({ navigation }) {
           </View>
           <View style={styles.buttonContainer}>
             <Button onPress={naviagtetoActivityPage}>GENERATE ACTIVITY</Button>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button onPress={naviagtetoSchedulePage}>GENERATE SCHEDULE</Button>
           </View>
         </View>
         <View style={styles.signoutbutton}>
@@ -200,7 +207,7 @@ styles = StyleSheet.create({
   },
   buttonsContainer: {
     flex: 1,
-    paddingHorizontal: 45,
+    paddingHorizontal: 44,
     marginBottom: 100,
     marginTop: 35,
   },
