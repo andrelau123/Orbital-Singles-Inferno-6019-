@@ -37,6 +37,9 @@ function HomeScreen({ navigation }) {
   const [best, setbest] = useState("");
   const [worst, setworst] = useState("");
   const [match, setmatch] = useState("");
+  const [hobby, sethobby] = useState("");
+  const [color, setcolor] = useState("");
+  const [food, setfood] = useState("");
 
   useEffect(() => {
     onValue(refer, (snapshot) => {
@@ -45,6 +48,10 @@ function HomeScreen({ navigation }) {
       setgender(data.gender);
       setbest(data.best);
       setworst(data.worst);
+      sethobby(data.info.hobby);
+      setcolor(data.info.color);
+      setfood(data.info.food);
+      console.log(hobby);
       if (data.mymatch == "-") {
         setmatch(data.mymatch);
       } else {
@@ -134,6 +141,15 @@ function HomeScreen({ navigation }) {
           <View style={styles.detailstextcontainer}>
             <Text style={styles.detailstext}> My Match: {match}</Text>
           </View>
+          <View style={styles.detailstextcontainer}>
+            <Text style={styles.detailstext}> My hobby: {hobby}</Text>
+          </View>
+          <View style={styles.detailstextcontainer}>
+            <Text style={styles.detailstext}> My favourite color: {color}</Text>
+          </View>
+          <View style={styles.detailstextcontainer}>
+            <Text style={styles.detailstext}> My favourite food: {food}</Text>
+          </View>
         </View>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
@@ -209,7 +225,7 @@ styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 44,
     marginBottom: 100,
-    marginTop: 35,
+    marginTop: 90,
   },
   profile: {
     marginTop: 40,

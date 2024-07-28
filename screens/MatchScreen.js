@@ -9,6 +9,10 @@ function MatchScreen() {
   const [matchid, setmatchid] = useState(null);
   const [matchname, setmatchname] = useState("");
   const [matchtele, settele] = useState("");
+  const [hobby, sethobby] = useState("");
+  const [color, setcolor] = useState("");
+  const [food, setfood] = useState("");
+
   const font = useFonts({ LoveYaLikeASister_400Regular });
 
   useEffect(() => {
@@ -20,6 +24,9 @@ function MatchScreen() {
           onValue(ref(database, "users/" + match), (snapshot) => {
             setmatchname(snapshot.val().name);
             settele(snapshot.val().telegram);
+            setcolor(snapshot.val().info.color);
+            setfood(snapshot.val().info.food);
+            sethobby(snapshot.val().info.hobby);
           });
         }
       }
@@ -56,7 +63,16 @@ function MatchScreen() {
               Your matches' name : {matchname}
             </Text>
             <Text style={styles.detailstext}>
-              Your matches' telegram handle : @ {matchtele}
+              Your matches' telegram handle : {matchtele}
+            </Text>
+            <Text style={styles.detailstext}>
+              Your matches' hobby : @ {hobby}
+            </Text>
+            <Text style={styles.detailstext}>
+              Your matches' favourite color : {color}
+            </Text>
+            <Text style={styles.detailstext}>
+              Your matches' favourite food : {food}
             </Text>
           </View>
         </>
@@ -109,6 +125,7 @@ const styles = StyleSheet.create({
   detailscontainer: {
     flex: 1,
     padding: 8,
+    marginBottom: 100,
   },
   detailstext: {
     padding: 8,

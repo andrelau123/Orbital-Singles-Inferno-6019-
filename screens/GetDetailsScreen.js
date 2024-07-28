@@ -60,7 +60,7 @@ function GetDetailsScreen({ navigation }) {
     };
     update(ref(database, "users/" + uid), updates);
 
-    navigation.navigate("Home");
+    navigation.navigate("Info");
   }
   return (
     <ScrollView style={styles.base}>
