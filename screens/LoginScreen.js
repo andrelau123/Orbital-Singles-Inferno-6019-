@@ -98,7 +98,7 @@ function LoginScreen({ navigation }) {
       case "Firebase: Error (auth/invalid-credential).":
         return "Wrong username or password. Please try again";
       case "Firebase: Password should be at least 6 characters (auth/weak-password).":
-        return "Your password should be al least 6 characters long.";
+        return "Your password should be at least 6 characters long.";
       default:
         error;
     }

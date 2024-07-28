@@ -15,6 +15,7 @@ import { Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { get, onValue, ref, update, push, child } from "firebase/database";
 import { auth, database } from "../firebase";
+import Filter from "../components/Filter";
 
 function ScheduleScreen() {
   const [items, setitems] = useState("");
@@ -22,14 +23,26 @@ function ScheduleScreen() {
   const [date, setdate] = useState(new Date());
   const [modal, setmodal] = useState(false);
   const [dates, setdates] = useState([]);
+  const [num, setnum] = useState(0);
   const uid = auth.currentUser.uid;
   const reference = ref(database, "users/" + uid + "/dates");
 
   useEffect(() => {
     onValue(reference, (snapshot) => {
       snapshot.forEach((child) => {
-        const val = child.val();
-        setdates((curr) => [...curr, val]);
+        const value = child.val();
+        console.log(value);
+        var present = false;
+        for (var d of dates) {
+          if (d.event == value.event) {
+            present = true;
+            console.log("same event");
+          }
+        }
+        if (!present) {
+          console.log("added new date");
+          setdates((curr) => [...curr, value]);
+        }
       });
       console.log(dates);
     });
@@ -48,14 +61,19 @@ function ScheduleScreen() {
           items[strTime] = [];
         }
       }
+      console.log(dates);
 
-      for (var a of dates) {
-        const datee = timeToString(a.date);
-        console.log(datee);
+      const arrUniq = [...new Map(dates.map((v) => [v.date, v])).values()];
+      console.log("unj" + arrUniq);
+
+      for (var j of arrUniq) {
+        console.log(j);
+        const datee = timeToString(j.date);
         items[datee].push({
-          name: a.event + " for " + datee + "#1",
+          name: j.event + " for " + datee + "#1",
           day: datee,
         });
+        console.log("pushed out");
       }
 
       // get(reference)
