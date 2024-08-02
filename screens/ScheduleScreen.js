@@ -63,7 +63,7 @@ function ScheduleScreen() {
       }
       console.log(dates);
 
-      const arrUniq = [...new Map(dates.map((v) => [v.date, v])).values()];
+      const arrUniq = [...new Map(dates.map((v) => [v.event, v])).values()];
       console.log("unj" + arrUniq);
 
       for (var j of arrUniq) {
