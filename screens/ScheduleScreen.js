@@ -52,7 +52,7 @@ function ScheduleScreen() {
     const items = items || {};
     console.log(day);
     setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
+      for (let i = -1000; i < 1000; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strTime = timeToString(time);
         console.log(strTime);
@@ -67,8 +67,10 @@ function ScheduleScreen() {
       console.log("unj" + arrUniq);
 
       for (var j of arrUniq) {
-        console.log(j);
         const datee = timeToString(j.date);
+        console.log(datee);
+        console.log(items[datee]);
+
         items[datee].push({
           name: j.event + " for " + datee + "#1",
           day: datee,
@@ -161,7 +163,7 @@ function ScheduleScreen() {
         <Agenda
           items={items}
           loadItemsForMonth={loadItems}
-          selected={"2024-07-25"}
+          selected={"2024-08-05"}
           style={styles.cal}
           renderItem={renderItem}
         />
