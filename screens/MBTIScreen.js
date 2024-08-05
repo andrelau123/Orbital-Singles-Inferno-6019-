@@ -1,4 +1,4 @@
-import { Text, View, Alert, StyleSheet } from "react-native";
+import { Text, View, Alert, StyleSheet, Modal } from "react-native";
 import YesButton from "../components/YesButton";
 import NoButton from "../components/NoButton";
 import { useState } from "react";
@@ -27,11 +27,15 @@ function MBTIScreen({ navigation }) {
     emotional_stability: 0,
     intellect: 0,
   });
+  const [modalvisible, setmodalvisible] = useState(false);
+  const [best, setbest] = useState("");
+  const [worst, setworst] = useState("");
   const [progressbar, setprogress] = useState(0);
   const file = require("./questions.json");
 
   function yesHandler() {
     updateRanking();
+    console.log(ranking);
     updateprogress();
     if (currentQuestion == 49) {
       const result = Object.entries(ranking);
@@ -49,7 +53,7 @@ function MBTIScreen({ navigation }) {
     nextQuestion();
   }
   function noHandler() {
-    updateRanking();
+    console.log(ranking);
     updateprogress();
     if (currentQuestion == 49) {
       const result = Object.entries(ranking);
@@ -84,6 +88,12 @@ function MBTIScreen({ navigation }) {
   }
   return (
     <View style={styles.base}>
+      <Modal visible={modalvisible}>
+        <View>
+          <Text>There is a tie!!</Text>
+          <Text>Please choose only 1 of the options!!</Text>
+        </View>
+      </Modal>
       <Text style={styles.Itext}>
         Pick the option that you resonate most with!!
       </Text>

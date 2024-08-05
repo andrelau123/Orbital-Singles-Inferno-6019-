@@ -51,6 +51,9 @@ function ActivitiesScreen() {
     if (!response) {
       Alert.alert("Please generate a response first before refining");
       return;
+    } else if (refinetext == "") {
+      Alert.alert("Please input a refine promt first!!");
+      return;
     }
     setactivity(main(best, worst, refinetext));
     resettext();

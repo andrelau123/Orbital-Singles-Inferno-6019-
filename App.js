@@ -47,7 +47,7 @@ export default function App() {
           >
             <Stack.Screen name="Welcome" component={LoginScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="MBTI" component={MBTIScreen} />
+            <Stack.Screen name="BIG 5" component={MBTIScreen} />
             <Stack.Screen name="Details" component={GetDetailsScreen} />
             <Stack.Screen name="mbtiresults" component={MBTIEndScreen} />
             <Stack.Screen name="Match" component={MatchScreen} />

@@ -124,6 +124,7 @@ function ScheduleScreen() {
   function closemodal() {
     if (name == "") {
       Alert.alert("Please enter an event");
+      return;
     }
     setmodal(false);
     console.log(date);

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
+  Alert,
 } from "react-native";
 import Button from "../components/Button";
 import { useState } from "react";
@@ -53,6 +54,10 @@ function GetDetailsScreen({ navigation }) {
 
   function handleResults() {
     const uid = auth.currentUser.uid;
+    if (gender == "" || name == "" || telegram == "") {
+      Alert.alert("One or more of the fields is blank");
+      return;
+    }
     const updates = {
       name: name,
       telegram: telegram,

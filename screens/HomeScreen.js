@@ -70,7 +70,7 @@ function HomeScreen({ navigation }) {
   }
 
   function navigateToMBTIPage() {
-    navigation.navigate("MBTI");
+    navigation.navigate("BIG 5");
   }
 
   function navigateToMatchingPage() {
@@ -94,6 +94,10 @@ function HomeScreen({ navigation }) {
   }
 
   function naviagtetoSchedulePage() {
+    if (best == "") {
+      Alert.alert("Please complete an MBTI test before proceeding");
+      return;
+    }
     navigation.navigate("Schedule");
   }
 
@@ -154,7 +158,7 @@ function HomeScreen({ navigation }) {
         </View>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
-            <Button onPress={navigateToMBTIPage}>MBTI TEST</Button>
+            <Button onPress={navigateToMBTIPage}>BIG 5 TEST</Button>
           </View>
           <View style={styles.buttonContainer}>
             <Button onPress={navigateToMatchingPage}>GET A MATCH</Button>
