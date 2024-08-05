@@ -44,7 +44,12 @@ function LoginScreen({ navigation }) {
       telegram: "",
       mymatch: "-",
       ranking: "",
-    });
+      info: {
+        hobby: "",
+        color: "",
+        food: "",
+      },
+    }).catch((error) => console.log(error));
   }
 
   function handleEmail(userEmailInput) {
@@ -65,7 +70,7 @@ function LoginScreen({ navigation }) {
       .then((userCredetial) => {
         const user = userCredetial.user;
         writeUserData(user.email, user.uid);
-        console.log(user.email);
+        console.log("signed up");
       })
       .catch((error) => {
         const message = handleError(error.message);

@@ -23,6 +23,7 @@ import GetMatch from "../components/GetMatch";
 
 function HomeScreen({ navigation }) {
   const useruid = auth.currentUser.uid;
+  console.log(useruid);
   const refer = ref(database, "users/" + useruid);
   const font = useFonts({
     PlayfairDisplay_700Bold,
