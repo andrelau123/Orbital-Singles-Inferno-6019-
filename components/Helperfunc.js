@@ -20,6 +20,23 @@ export default function Helperfunc(array) {
     }
   }
 
+  console.log(max + "maxxx");
+  console.log(min + "minnn");
+
+  if (max == min) {
+    for (const [key, value] of array) {
+      console.log(key);
+      if (key != max) {
+        min = key;
+        console.log("chnaged");
+        break;
+      }
+    }
+  }
+
+  console.log(max + "maxxx");
+  console.log(min + "minnn");
   let ranking = max + min;
+  console.log(ranking);
   return [max, min, ranking];
 }
